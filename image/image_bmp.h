@@ -1,6 +1,7 @@
-/* 
- * image_bmp.h by Tobias Alexander Franke (tob@cyberhead.de) 2001 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2001
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_IMAGE_BMP__)
@@ -15,7 +16,7 @@
 namespace deimos {
 namespace image {
 
-class ImageBmp : public Image  
+class ImageBmp : public Image
 {
 private:
 	struct tBmpFileHeader

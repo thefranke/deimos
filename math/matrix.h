@@ -1,6 +1,7 @@
-/* 
- * matrix.h by Tobias Alexander Franke (tob@cyberhead.de) 2003 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2003
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  *
  * Matrices are handled row-major!
  */
@@ -15,7 +16,7 @@ namespace deimos {
 namespace math {
 
 template<typename T, int S>
-class Matrix  
+class Matrix
 {
 public:
 	typedef Matrix<T, S> Mat;
@@ -26,7 +27,7 @@ public:
 	{
 		*this = *this * op;
 	};
-	
+
 	void operator*=(const float op)
 	{
 		for (int i=0; i < S; ++i)
@@ -38,7 +39,7 @@ public:
 		for(int i=0; i < S; ++i)
 			row_[i]+=op[i];
 	};
-	
+
 	void operator/=(const float op)
 	{
 		operator*=(1/op);
@@ -122,12 +123,12 @@ public:
 		}
 	};
 
-	T* get_addr() 
+	T* get_addr()
 	{
 		return &(row_[0][0]);
 	};
 
-    const T* get_addr() const 
+    const T* get_addr() const
 	{
 		return &(row_[0][0]);
 	};
@@ -144,11 +145,11 @@ public:
 template<typename T>
 T determinant(const Matrix<T, 3>& op)
 {
-	return	op[0][0]*op[1][1]*op[2][2] + 
-			op[0][1]*op[1][2]*op[2][0] + 
-			op[0][2]*op[1][0]*op[2][1] - 
-			op[0][2]*op[1][1]*op[2][0] - 
-			op[0][1]*op[1][0]*op[2][2] - 
+	return	op[0][0]*op[1][1]*op[2][2] +
+			op[0][1]*op[1][2]*op[2][0] +
+			op[0][2]*op[1][0]*op[2][1] -
+			op[0][2]*op[1][1]*op[2][0] -
+			op[0][1]*op[1][0]*op[2][2] -
 			op[0][0]*op[1][2]*op[2][1];
 }
 
@@ -157,7 +158,7 @@ T determinant(const Matrix<T, 3>& op)
 template<typename T>
 T determinant(const Matrix<T, 2>& op)
 {
-	return	op[0][0]*op[1][1] - 
+	return	op[0][0]*op[1][1] -
 			op[0][1]*op[1][0];
 }
 
@@ -174,7 +175,7 @@ Matrix<T, 2> invert(const Matrix<T, 2>& op)
 	ret[1][0]=-op[0][1];
 
 	T det(determinant(op));
-	
+
 	assert(det != 0);
 
 	ret*=1/det;
@@ -186,4 +187,3 @@ Matrix<T, 2> invert(const Matrix<T, 2>& op)
 } // namespace deimos
 
 #endif // DEIMOS_MATH_MATRIX__
-

@@ -1,6 +1,7 @@
-/* 
- * image.h by Tobias Alexander Franke (tob@cyberhead.de) 2001 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2001
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_IMAGE__)
@@ -15,7 +16,7 @@
 namespace deimos {
 namespace image {
 
-class Image  
+class Image
 {
 protected:
 	unsigned char* raw_data_;
@@ -43,7 +44,7 @@ public:
 	bool save(const char* filename) const;
 
 	virtual ~Image();
-	
+
 };
 
 } // namespace image

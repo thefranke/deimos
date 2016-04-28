@@ -1,6 +1,7 @@
-/* 
- * image.cpp by Tobias Alexander Franke (tob@cyberhead.de) 2001 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2001
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #include "image.h"
@@ -8,7 +9,7 @@
 namespace deimos {
 namespace image {
 
-Image::Image() : 
+Image::Image() :
 	raw_data_(0), width_(0), height_(0)
 {
 
@@ -62,7 +63,7 @@ bool Image::load(const char* filename)
 
 	// Discard possible old image
 	delete [] raw_data_;
-	
+
 #ifdef BOOST_BIG_ENDIAN
 	stream.toggle_convert();
 #endif

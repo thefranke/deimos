@@ -1,6 +1,7 @@
-/* 
- * image_tga.h by Tobias Alexander Franke (tob@cyberhead.de) 2003 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2003
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_IMAGE_TGA__)
@@ -15,10 +16,10 @@
 namespace deimos {
 namespace image {
 
-class ImageTga : public Image  
+class ImageTga : public Image
 {
 private:
-	struct tTgaFileHeader 
+	struct tTgaFileHeader
 	{
 		char			cCharacteristic;
 		char			cColorMapType;

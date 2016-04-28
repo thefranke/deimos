@@ -1,6 +1,7 @@
-/* 
- * intersect.h by Tobias Alexander Franke (tob@cyberhead.de) 2003 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2003
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_MATH_INTERSECT__)
@@ -17,7 +18,7 @@
 namespace deimos {
 namespace math {
 namespace geometry {
-	
+
 	namespace {
 		static const float delta = .001f;
 	}
@@ -26,7 +27,7 @@ namespace geometry {
  * All intersect routines use normalized half-rays and return a positive direction
  */
 
-template<typename T> 
+template<typename T>
 struct intersection_point
 {
     Vector<T, 4>	pos_;
@@ -45,12 +46,12 @@ intersection_point<T> intersect(const Triangle<T,4>& triangle, const Ray<T,4>& r
 
 	v31 = triangle.vertex_[2] - triangle.vertex_[0];
 	v21 = triangle.vertex_[1] - triangle.vertex_[0];
-	
+
 	cross2 = cross_product(ray.direction_, v31);
 	det = cross2*v21;
 
-	if (is_in_range(det, -delta, delta)) 
-        return result; 
+	if (is_in_range(det, -delta, delta))
+        return result;
 
 	r0v1 = ray.origin_ - triangle.vertex_[0];
 	cross1 = cross_product(r0v1, v21);
@@ -75,11 +76,11 @@ intersection_point<T> intersect(const Triangle<T,4>& triangle, const Ray<T,4>& r
 	v31 = interpolate_linear(triangle.normal_[0], triangle.normal_[2], v);
 
 	result.normal_ = (v31+v21);
-		
-	result.normal_.normalize(); 
-	result.pos_ = ray.origin_ + ray.direction_*t; 
+
+	result.normal_.normalize();
+	result.pos_ = ray.origin_ + ray.direction_*t;
 	result.distance_ = t;
-	result.valid_ = true; 
+	result.valid_ = true;
 
 	return result;
 }
@@ -115,7 +116,7 @@ intersection_point<T> intersect(const Sphere<T,4>& sphere, const Ray<T,4>& ray)
 	result.distance_ = t;
 	result.normal_ = result.pos_ - sphere.center_;
 	result.normal_.normalize();
-	result.valid_ = true;  
+	result.valid_ = true;
 	return result;
 }
 

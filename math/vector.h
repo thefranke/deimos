@@ -1,6 +1,7 @@
-/* 
- * vector.h by Tobias Alexander Franke (tob@cyberhead.de) 2003 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2003
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_MATH_VECTOR__)
@@ -32,7 +33,7 @@ public:
 	{
 		Vec res;
 
-		for (int i=0; i<S; ++i) 
+		for (int i=0; i<S; ++i)
 			res.element_[i] = element_[i] + op.element_[i];
 
 		return res;
@@ -42,23 +43,23 @@ public:
 	{
 		Vec res;
 
-		for (int i=0; i<S; ++i) 
-			res.element_[i] = element_[i] - op.element_[i]; 
+		for (int i=0; i<S; ++i)
+			res.element_[i] = element_[i] - op.element_[i];
 
 		return res;
 	};
 
-	// Inner product	
+	// Inner product
 	T operator*(const Vec& op) const
-	{ 
+	{
 		T res = T();
 
-		for (int i=0; i<S; ++i) 
-			res+=element_[i]*op.element_[i]; 
+		for (int i=0; i<S; ++i)
+			res+=element_[i]*op.element_[i];
 
-		return res; 
+		return res;
 	};
-	
+
 	const Vec operator*(T op) const
 	{
 		Vec res;
@@ -68,7 +69,7 @@ public:
 
 		return res;
 	};
-	
+
 	const Vec operator/(T op) const
 	{
 		return operator*(1/op);
@@ -98,10 +99,10 @@ public:
 	};
 
 	inline const T& operator[](int n) const
-	{ 
-		assert(n >=0 && n < S); 
+	{
+		assert(n >=0 && n < S);
 
-		return element_[n]; 
+		return element_[n];
 	};
 
 	inline T& operator[](int n)
@@ -145,12 +146,12 @@ public:
 		return temp == op;
 	};
 
-	T* get_addr() 
+	T* get_addr()
 	{
 		return &(element_[0]);
 	};
 
-    const T* get_addr() const 
+    const T* get_addr() const
 	{
 		return &(element_[0]);
 	};
@@ -191,4 +192,3 @@ Vector<T, S> get_normal_angle(const Vector<T, S>& op1, const Vector<T, S>& op2)
 } // namespace deimos
 
 #endif // DEIMOS_MATH_VECTOR__
-

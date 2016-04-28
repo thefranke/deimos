@@ -1,6 +1,7 @@
-/* 
- * ray.h by Tobias Alexander Franke (tob@cyberhead.de) 2003 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2003
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_MATH_RAY__)
@@ -22,7 +23,7 @@ public:
 
 	bool is_on_ray(const Vec& op) const
 	{
-		// Works also, but only for 3 dimensions: 
+		// Works also, but only for 3 dimensions:
 		// CrossProduct(op - Point_, Direction_) == 0 ? return true : return false;
 		return direction_.is_parallel_to(op - origin_);
 	};
@@ -31,7 +32,7 @@ public:
 	{
 		return (origin_ + (direction_ * op));
 	};
-	
+
 };
 
 } // namespace geometry
@@ -39,6 +40,3 @@ public:
 } // namespace deimos
 
 #endif // DEIMOS_MATH_RAY__
-
-
-	

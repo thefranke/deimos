@@ -1,6 +1,7 @@
-/* 
- * spherical_harmonics.h by Tobias Alexander Franke (tob@cyberhead.de) 2006 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2006
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_MATH_SPHERICAL_HARMONICS__)
@@ -25,7 +26,7 @@ namespace sh {
  * Definitions & Usage
  * -------------------
  *
- * Spherical Coordinates: 
+ * Spherical Coordinates:
  *   0 <= theta < PI   for latitude   (north/south)
  *   0 <= phi   < 2PI  for longtitude (equator)
  */
@@ -230,7 +231,7 @@ void project_polar_function_vec(boost::function<RetT(T, T, T)> func, std::list< 
 		result[i] = result[i] * weight;
 }
 
-// project polar function using vector parameterization 
+// project polar function using vector parameterization
 template<typename RetT, class B>
 void project_polar_function_vec(boost::function<RetT(typename B::base_type, typename B::base_type, typename B::base_type)> func,
 								int num_samples, int num_bands, std::vector<RetT>& result)
@@ -275,9 +276,9 @@ void project_polar_function_vec(boost::function<RetT(typename B::base_type, type
 		result[i] = result[i] * weight;
 }
 
-// project polar function using spherical parameterization 
+// project polar function using spherical parameterization
 template<typename RetT, class B>
-void project_polar_function_sph(boost::function<RetT(typename B::base_type, typename B::base_type)> func, 
+void project_polar_function_sph(boost::function<RetT(typename B::base_type, typename B::base_type)> func,
 								int num_samples, int num_bands, std::vector<RetT>& result)
 {
 	typedef typename B::base_type T;
@@ -289,7 +290,7 @@ void project_polar_function_sph(boost::function<RetT(typename B::base_type, type
 
 	const T weight = T(4.0 * constants::PI)/T(num_samples);
 	const int num_coeff = num_bands * num_bands;
-	
+
 	result.resize(num_coeff);
 
 	// integrate sample values
@@ -322,7 +323,7 @@ RetT reconstruct_function(typename B::base_type theta, typename B::base_type phi
 	const int num_bands = static_cast<int>(std::sqrt(static_cast<float>(result.size())));
 
 	RetT ret = RetT();
-	
+
 	// multiply all base functions with coefficients
 	for (int l = 0; l < num_bands; ++l)
 		for(int m = -l; m <= l; ++m)
@@ -399,7 +400,7 @@ protected:
 	}
 
 	// Green notation!
-	inline T M(int l, int m, int n) const 
+	inline T M(int l, int m, int n) const
 	{
 		assert (std::abs(m) <= l && std::abs(n) <= l && "spherical_harmonics.h: M() submatrix indices are too big");
 		const int index = l*(l+1);
@@ -419,11 +420,11 @@ protected:
 		for (int n = -l; n <= l; ++n)
 		{
 			uvw(l, m, n);
-			
+
 			u_ *= (u_ != 0) ? U(l, m, n) : 0;
 			v_ *= (v_ != 0) ? V(l, m, n) : 0;
 			w_ *= (w_ != 0) ? W(l, m, n) : 0;
-		
+
 			set(l, m, n, u_ + v_ + w_);
 		}
 	}
@@ -453,8 +454,8 @@ public:
 			set(1,  0,  0, rot_matrix[z][z]);
 			set(1,  0,  1, rot_matrix[z][x]);
 
-			set(1,  1, -1, rot_matrix[x][y]);			
-			set(1,  1,  0, rot_matrix[x][z]);			
+			set(1,  1, -1, rot_matrix[x][y]);
+			set(1,  1,  0, rot_matrix[x][z]);
 			set(1,  1,  1, rot_matrix[x][x]);
 		}
 		else
@@ -467,8 +468,8 @@ public:
 			set(1,  0,  0, rot_matrix[z][z]);
 			set(1,  0,  1, rot_matrix[x][z]);
 
-			set(1,  1, -1, rot_matrix[y][x]);			
-			set(1,  1,  0, rot_matrix[z][x]);			
+			set(1,  1, -1, rot_matrix[y][x]);
+			set(1,  1,  0, rot_matrix[z][x]);
 			set(1,  1,  1, rot_matrix[x][x]);
 		}
 
@@ -486,7 +487,7 @@ public:
 		std::vector<RetT> ret;
 
 		const size_t num_coeff = coefficients.size();
-		
+
 		ret.resize(num_coeff);
 
 		for (size_t i = 0; i < num_coeff; ++i)

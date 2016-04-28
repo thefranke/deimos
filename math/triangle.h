@@ -1,6 +1,7 @@
-/* 
- * triangle.h by Tobias Alexander Franke (tob@cyberhead.de) 2004 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2004
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_MATH_TRIANGLE__)
@@ -19,7 +20,7 @@ class Triangle
 public:
 	typedef Vector<T, S> Vec;
 	Vec vertex_[3], normal_[3];
-	
+
 	void calc_normal()
 	{
 		Vec t1, t2;

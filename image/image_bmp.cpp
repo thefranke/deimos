@@ -1,6 +1,7 @@
-/* 
- * image_bmp.cpp by Tobias Alexander Franke (tob@cyberhead.de) 2001 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2001
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #include "image_bmp.h"
@@ -28,7 +29,7 @@ bool ImageBmp::do_load(endian_ifstream& stream)
 	stream.read((char*)&bmp_file_header.bfReserved1, 2);
 	stream.read((char*)&bmp_file_header.bfReserved2, 2);
 	stream.read((char*)&bmp_file_header.bfOffBits, 4);
-	
+
 	stream.read((char*)&bmp_info_header.biSize, 4);
 	stream.read((char*)&bmp_info_header.biWidth, 4);
 	stream.read((char*)&bmp_info_header.biHeight, 4);
@@ -42,7 +43,7 @@ bool ImageBmp::do_load(endian_ifstream& stream)
 	stream.read((char*)&bmp_info_header.biClrImportant, 4);
 
 #ifdef DEBUG__
-	
+
 	cout << "READ" << endl;
 	cout << "bmp_file_header" << endl;
 	cout << "type = " << bmp_file_header.bfType << endl;
@@ -64,7 +65,7 @@ bool ImageBmp::do_load(endian_ifstream& stream)
 
 #endif // DEBUG__
 
-	// Jump to actual data (this is needed because of bugs in packages like Photoshop 5.0 
+	// Jump to actual data (this is needed because of bugs in packages like Photoshop 5.0
 	// where the header was aligned to 4 bytes and is thus 2 bytes too long).
 	stream.seekg(bmp_file_header.bfOffBits, std::ios_base::beg);
 
@@ -114,12 +115,12 @@ bool ImageBmp::do_save(endian_ofstream& stream) const
 {
 	tBmpFileHeader bmp_file_header;
 	tBmpInfoHeader bmp_info_header;
-	
+
 	const int size_file_header = 14; // sizeof(tBmpFileHeader)
 	const int size_info_header = 40; // sizeof(tBmpInfoHeader)
 	const int header_size = size_file_header + size_info_header;
 	const int color_table_size = (bytes_per_pixel_ < 3) ?  (1 << (bytes_per_pixel_ * 8)) * 4 : 0;
-	
+
 	long data_size = width_ * height_ * bytes_per_pixel_;
 	data_size += data_size%4;
 
@@ -134,7 +135,7 @@ bool ImageBmp::do_save(endian_ofstream& stream) const
 	stream.write((char*)&bmp_file_header.bfReserved1, 2);
 	stream.write((char*)&bmp_file_header.bfReserved2, 2);
 	stream.write((char*)&bmp_file_header.bfOffBits, 4);
-	
+
 	bmp_info_header.biSize			= size_info_header;
 	bmp_info_header.biWidth			= width_;
 	bmp_info_header.biHeight		= height_;
@@ -160,7 +161,7 @@ bool ImageBmp::do_save(endian_ofstream& stream) const
 	stream.write((char*)&bmp_info_header.biClrImportant, 4);
 
 #ifdef DEBUG__
-	
+
 	cout << "WRITE" << endl;
 	cout << "bmp_file_header" << endl;
 	cout << "type = " << bmp_file_header.bfType << endl;
@@ -224,7 +225,7 @@ void ImageBmp::do_save_24(std::ofstream& stream) const
 	{
 		for(unsigned int x = 0; x < row_size; x+=3)
 			std::swap(raw_data_[(y * row_size) + x + 0], raw_data_[(y * row_size) + x + 2]);
-		
+
 		stream.write((char*)raw_data_ + (y * row_size), std::streamsize(row_size));
 
 		// Align to 4 bytes

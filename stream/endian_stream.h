@@ -1,6 +1,7 @@
-/* 
- * endian_stream.h by Tobias Alexander Franke (tob@cyberhead.de) 2004 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2004
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_ENDIAN_STREAM__)
@@ -21,7 +22,7 @@ class endian_stream : public type
 protected:
 	bool need_convert_;
 	endian_stream(){};
-	
+
 	void convert_data(char* buffer, unsigned int byte_count)
 	{
 		if(byte_count == 2 || byte_count == 4)
@@ -37,29 +38,29 @@ public:
 
 	void toggle_convert()
 	{
-		need_convert_ = !need_convert_; 
+		need_convert_ = !need_convert_;
 	}
 
 	interf& read(char* buffer, const std::streamsize size)
 	{
 		type::read(buffer, size);
-		
+
 		if(need_convert_)
 			convert_data(buffer, size);
 
 		return *this;
 	}
-	
+
 	interf& write(const char* buffer, const std::streamsize size)
 	{
 		char* buf_copy = new char[size];
 		std::copy(buffer, buffer + size, buf_copy);
-		
+
 		if(need_convert_)
 			convert_data(buf_copy, size);
-			
+
 		type::write(buf_copy, size);
-		
+
 		delete [] buf_copy;
 
 		return *this;

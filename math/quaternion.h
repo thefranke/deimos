@@ -1,6 +1,7 @@
-/* 
- * quaternion.h by Tobias Alexander Franke (tob@cyberhead.de) 2003 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2003
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined(DEIMOS_MATH_QUAT__)
@@ -27,7 +28,7 @@ protected:
 
 public:
 	virtual ~Quaternion() {};
-	
+
 	Quat operator*(const Quat& op) const
 	{
 		Quat res;
@@ -108,7 +109,7 @@ public:
 	{
 		Quat res = *this;
 		res.invert();
-		
+
 		return res;
 	};
 

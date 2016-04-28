@@ -1,6 +1,7 @@
-/* 
- * sphere.h by Tobias Alexander Franke (tob@cyberhead.de) 2004 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2004
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #if !defined (DEIMOS_MATH_SPHERE__)
@@ -25,7 +26,7 @@ public:
 	{
 		return (center_ - op).size_sqr() - std::pow(radius_, 2);
 	};
-	
+
 	T distance(const Vec& op) const
 	{
 		std::sqrt(distanceSqr(op));

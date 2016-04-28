@@ -1,6 +1,7 @@
-/* 
- * image_tga.cpp by Tobias Alexander Franke (tob@cyberhead.de) 2003 
+/*
+ * Deimos tool library - Tobias Alexander Franke 2003
  * For copyright and license see LICENSE
+ * http://www.tobias-franke.eu
  */
 
 #include "image_tga.h"
@@ -23,7 +24,7 @@ ImageTga::~ImageTga()
 bool ImageTga::do_load(endian_ifstream& stream)
 {
 	tTgaFileHeader tgaFileHeader;
-	
+
 	stream.read((char*)&tgaFileHeader.cCharacteristic, 1);
 	stream.read((char*)&tgaFileHeader.cColorMapType, 1);
 	stream.read((char*)&tgaFileHeader.cImageTypeCode, 1);
@@ -36,7 +37,7 @@ bool ImageTga::do_load(endian_ifstream& stream)
 	stream.read((char*)&tgaFileHeader.usHeight, 2);
 	stream.read((char*)&tgaFileHeader.cBitsPerPixel, 1);
 	stream.read((char*)&tgaFileHeader.cImageDescriptor, 1);
-	
+
 #ifdef DEBUG__
 
 	cout << "cCharacteristic = " << static_cast<int>(tgaFileHeader.cCharacteristic) << endl;
@@ -51,7 +52,7 @@ bool ImageTga::do_load(endian_ifstream& stream)
 	cout << "usHeight = " << tgaFileHeader.usHeight << endl;
 	cout << "cBitsPerPixel = " << static_cast<int>(tgaFileHeader.cBitsPerPixel) << endl;
 	cout << "cImageDescriptor = " << static_cast<int>(tgaFileHeader.cImageDescriptor) << endl;
-		
+
 #endif // DEBUG__
 
 	// No colormap support
@@ -78,7 +79,7 @@ bool ImageTga::do_load(endian_ifstream& stream)
 	if (!(raw_data_ = new unsigned char[width_ * height_ * bytes_per_pixel_]))
 	{
 		std::cout << "ImageTga: error (couldn\'t allocate memory)" << std::endl;
-		return false;		
+		return false;
 	}
 
 	switch(bytes_per_pixel_)
@@ -101,9 +102,9 @@ bool ImageTga::do_load(endian_ifstream& stream)
 bool ImageTga::do_save(endian_ofstream& stream) const
 {
 	tTgaFileHeader tgaFileHeader;
-	
+
 	const std::string comment = "visit http://www.cyberhead.de/";
-	
+
 	tgaFileHeader.cCharacteristic		= static_cast<char>(comment.length());
 	tgaFileHeader.cColorMapType			= 0;
 	tgaFileHeader.cImageTypeCode		= 2;
@@ -150,7 +151,7 @@ bool ImageTga::do_save(endian_ofstream& stream) const
 void ImageTga::do_load_24(std::ifstream& stream)
 {
 	stream.read((char*)raw_data_, width_ * height_ * bytes_per_pixel_);
-	
+
 	for (unsigned int i=0; i<width_ * height_ * bytes_per_pixel_; i+=3)
 	{
 		// Swap BGR to RGB
@@ -172,7 +173,7 @@ void ImageTga::do_save_24(std::ofstream& stream) const
 void ImageTga::do_load_32(std::ifstream& stream)
 {
 	stream.read((char*)raw_data_, width_ * height_ * bytes_per_pixel_);
-	
+
 	for (unsigned int i=0; i<width_ * height_ * bytes_per_pixel_; i+=4)
 	{
 		// Swap BGRA to RGBA
@@ -187,7 +188,7 @@ void ImageTga::do_save_32(std::ofstream& stream) const
 		// Swap RGBA to BGRA
 		std::swap(raw_data_[i + 0], raw_data_[i + 2]);
 	}
-	
+
 	stream.write((char*)raw_data_, width_ * height_ * bytes_per_pixel_);
 }
 
